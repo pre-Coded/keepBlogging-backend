@@ -4,12 +4,13 @@ const BlogList = require('../controllers/BlogList.Controller');
 const CreateBlogs = require('../controllers/CreateBlogs.Controller');
 const personalBlog = require('../controllers/PersonalBlogs.Controller');
 const SignUp = require('../controllers/SignUp.Controller');
-const { CLIENT_URL } = require('../utils/constants');
 const SendImg = require('../controllers/SendImg.Controller');
 const multer = require('multer');
 const fs = require('fs');
 const UserController = require('../controllers/User.Controller');
 const UpdateUser = require('../controllers/UpdateUserController');
+
+require('dotenv').config();
 
 const apiPublic = express.Router();
 const apiProtected = express.Router();
@@ -29,7 +30,7 @@ apiPublic.post('/signup', SignUp);
 require('../utils/googleAuthStrategy');
 apiPublic.get('/google', passport.authenticate('google', { scope : ['profile' , 'email'] }));
 apiPublic.get('/google/callback', passport.authenticate('google', { failureRedirect: `/login`}), (req, res) => {
-    res.redirect(`${CLIENT_URL}`);
+    res.redirect(`${process.env.CLIENT_URL}`);
 });
 
 require('../utils/localStrategy');
@@ -53,7 +54,7 @@ apiPublic.post('/login', passport.authenticate("local"),
 // protected apis
 apiProtected.use(ensureAuthentication);
 apiProtected.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", `${CLIENT_URL}`);
+    res.setHeader("Access-Control-Allow-Origin", `${process.env.CLIENT_URL}`);
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");

@@ -5,10 +5,8 @@ const session = require('express-session');
 const Mongo_store = require('connect-mongo');
 const passport = require('passport');
 const {apiPublic, apiProtected} = require('./src/router/api')
-const  { DB_CONNECT, CLIENT_URL }  = require('./src/utils/constants');
 
 require('dotenv').config();
-console.log(process.env.CLIENT_URL)
 
 const app = express();
 
