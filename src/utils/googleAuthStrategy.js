@@ -1,14 +1,14 @@
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK } = require('./constants');
 const passport = require('passport')
 const User = require("../models/User")
 const uuid = require("uuid-random");
+require('dotenv').config();
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: GOOGLE_CALLBACK,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK,
     passReqToCallback: true,
 },
     async function (req, accessToken, refreshToken, profile, done) {

@@ -5,21 +5,20 @@ const session = require('express-session');
 const Mongo_store = require('connect-mongo');
 const passport = require('passport');
 const {apiPublic, apiProtected} = require('./src/router/api')
-const  { DB_CONNECT, CLIENT_URL }  = require('./src/utils/constants');
 require('dotenv').config();
 
 
 
 const app = express();
 
-mongoose.connect(DB_CONNECT, { useNewUrlParser : true }).then(()=>{
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
     console.log("db connected.")
 }).catch((e) => {
     console.log("failure in connection to db");
 })
 
 app.use(express.json());
-app.use(cors({credentials: true, origin: `${CLIENT_URL}`}));
+app.use(cors({credentials: true, origin: `${process.env.CLIENT_URL}`}));
 app.use(express.urlencoded({extended : true}));
 
 
@@ -28,7 +27,7 @@ app.use(session({
     resave : false,
     saveUninitialized : false, 
     store : Mongo_store.create({
-        mongoUrl : DB_CONNECT, 
+        mongoUrl : process.env.DB_CONNECT, 
         autoRemove : 'disabled',
     }, (err) => {
         console.log("connected to mongo-connect", err);
@@ -47,6 +46,8 @@ app.use("/api", apiPublic);
 
 app.use("/api", apiProtected);
 
-app.listen(3010, ()=>{
+const port = process.env.PORT || 3005;
+
+app.listen(port , ()=>{
     console.log("Running on port 3010");
 })
