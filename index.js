@@ -44,7 +44,7 @@ app.use(passport.session());
 app.use("/api", apiPublic);
 app.use("/api", apiProtected);
 
-const port = 3010
+const port = process.env.PORT || 3010
 
 app.listen( port , ()=>{
     console.log(`Server running on port ${port}`); 
