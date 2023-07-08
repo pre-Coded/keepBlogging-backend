@@ -17,7 +17,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
 })
 
 app.use(express.json());
-app.use(cors({credentials: true, origin: `${process.env.CLIENT_URL}`}));
+app.use(cors({credentials: true, origin: `${"*"}`}));
 app.use(express.urlencoded({extended : true}));
 
 
@@ -42,7 +42,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api", apiPublic);
-
 app.use("/api", apiProtected);
 
 const port = 3010
