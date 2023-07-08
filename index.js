@@ -17,7 +17,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
 })
 
 app.use(express.json());
-app.use(cors({credentials: true, origin: `${"*"}`}));
+app.use(cors({credentials: true, origin: `${process.env.CLIENT_URL}`}));
 app.use(express.urlencoded({extended : true}));
 
 
