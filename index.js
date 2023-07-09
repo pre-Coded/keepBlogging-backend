@@ -8,7 +8,6 @@ const {apiPublic, apiProtected} = require('./src/router/api')
 const cookieParser = require('cookie-parser')
 
 require('dotenv').config();
-
 const app = express();
 
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
@@ -19,7 +18,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
 
 app.use(cookieParser());
 app.use(express.json());
-
+app.use(express.urlencoded({extended : true}));
 app.use( cors(function (req, cb) {
     let corsOptions;
     corsOptions = {
@@ -36,11 +35,6 @@ app.use( cors(function (req, cb) {
     res.header('Access-Control-Allow-Credentials', true);
     next();
   });
-
-
-app.use(express.urlencoded({extended : true}));
-
-
 app.use(session({
     secret : "aldjfkajfkad",
     resave : false,
