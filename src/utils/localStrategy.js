@@ -13,7 +13,7 @@ passport.use(
 )
 
 passport.serializeUser((user, done) => {
-    console.log("ser");
+    console.log(user);
     return done(null, user._id);
 })
 
