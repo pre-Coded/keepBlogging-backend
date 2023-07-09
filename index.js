@@ -19,7 +19,25 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser : true }).then(()=>{
 
 app.use(cookieParser());
 app.use(express.json());
-app.use('*', cors({credentials: true, origin: true}));
+
+app.use( cors(function (req, cb) {
+    let corsOptions;
+    corsOptions = {
+
+      origin: process.env.CLIENT_URL,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+      credentials: true,
+
+    };
+
+    cb(null, corsOptions);
+  }), function (req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+  });
+
+
 app.use(express.urlencoded({extended : true}));
 
 
@@ -35,8 +53,9 @@ app.use(session({
     }), 
     cookie : {
         maxAge : 1000*60*60*24, 
-        secure : false, 
-        sameSite : false,
+        secure : true, 
+        sameSite : 'strict',
+        resave : false,
     }
 }))
 
