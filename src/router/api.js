@@ -39,7 +39,7 @@ apiPublic.post('/login', passport.authenticate("local"),
 
         if (req.isAuthenticated() && req.user) {
             res.json({
-                authStatus: true,
+                authStatus: true, 
                 data: {
                     id: req.user._id,
                     username: req.user.username

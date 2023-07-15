@@ -13,16 +13,15 @@ const Login = async (username, password, done) => {
             if(isVerified){
                 return done(null, isUser);
             }else{
-                console.log("pass")
-                return done(null, false)
+                done(null, false, {message : "Password is incorrect."})
             }
         }
 
         console.log("user")
-        return done(null, false);
+        done(null, false, {message : "Username doesn't exist."});
     }catch(e){
         console.log(e);
-        return done(e);
+        done(e, {message : "error"});
     }
 }
 

@@ -9,12 +9,11 @@ const personalBlog = async (req, res) => {
         options: { sort: { createdAt: -1 } } // Sort by 'createdAt' field in descending order
       });
 
-
     if (result) {
       return res.json({
         message: "Personal Blog successfully fetched",
         data: result,
-      });
+    });
       
     } else {
       return res.json({
