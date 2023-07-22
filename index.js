@@ -42,6 +42,7 @@ app.use(session({
     secret : "aldjfkajfkad",
     resave : false,
     saveUninitialized : false, 
+    
     store : Mongo_store.create({
         mongoUrl : process.env.DB_CONNECT, 
         autoRemove : 'disabled',
@@ -50,6 +51,7 @@ app.use(session({
     }), 
     cookie : {
         maxAge : 1000*60*60*24, 
+        domain: 'https://timely-youtiao-3188ff.netlify.app'
     }
 }))
 
